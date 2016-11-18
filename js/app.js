@@ -12,11 +12,12 @@
     const $target = $(event.target);
     if ($screen.text() === '0')
       $screen.text('');
-    $screen.text($screen.text() + $target.text());
+    const updatedScreen = $screen.text() + $target.text();
+    $screen.text(updatedScreen);
   });
 
   $('#equals').on('click', () => {
-    const result = eval($screen.text().replace(/x/g,'*').replace(/%/g,'/'));
-    $screen.text(result.toString());
+    const result = eval($screen.text().replace(/x/g, '*').replace(/÷/g, '/'));
+    $screen.text(result);
   });
 })();
