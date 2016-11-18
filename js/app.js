@@ -9,15 +9,28 @@
   });
 
   $('div.buttons').on('click', 'span:not("#clear"):not("#equals")', (event) => {
-    const $target = $(event.target);
-    if ($screen.text() === '0')
+    if ($screen.text() === '0' || $screen.text() === 'Error')
       $screen.text('');
-    const updatedScreen = $screen.text() + $target.text();
+    const updatedScreen = $screen.text() + $(event.target).text();
     $screen.text(updatedScreen);
   });
 
   $('#equals').on('click', () => {
-    const result = eval($screen.text().replace(/x/g, '*').replace(/÷/g, '/'));
-    $screen.text(result);
+    const arithExp = $screen.text();
+    let arithExpResult;
+
+    try {
+      arithExpResult = eval(arithExp.replace(/x/g, '*').replace(/÷/g, '/'));
+    }
+    catch (e) {
+      arithExpResult = 'Error';
+    }
+
+    if (!Number.isFinite(arithExpResult))
+      arithExpResult = 'Error';
+
+    $screen.text(arithExpResult);
   });
+
+  // TODO: add parenthesis button and decimal
 })();
